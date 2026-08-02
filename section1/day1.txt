@@ -1,0 +1,50 @@
+github.com/ed-donner/llm_engineering
+ollama.com // run a modal locally
+taskkill /F /IM ollama.exe
+ollama serve
+ollama run gemma3:270m // small, 270 million
+he also tried phi3
+ollama run gpt-oss // really heavy
+
+setting the env
+    -clone the repo, install cursor
+    -install the wonderful uv - setup your environment
+    -generate an openAI key
+    -add key to .env file
+    -get started
+    
+install uv
+uv self update
+
+inside llm_engineering
+    uv sync // download packages
+
+got to open https://platform.openai.com/
+    generate add balance and generate keys
+    llm_engineering_key
+
+system prompt (like rag - supply information, setting the scene)
+    system_prompt = """
+    You are a snarky assistant that analyzes the contents of a website,
+    and provides a short, snarky, humorous summary, ignoring text that might be navigation related.
+    Respond in markdown. Do not wrap the markdown in a code block - respond just with the markdown.
+    """
+user prompt (actual message comming from user to llm)
+messages = [
+    {"role": "system", "content": "You are a helpful assistant"},
+    {"role": "user", "content": "What is 2 + 2?"}
+]
+'2 + 2 equals 4.'
+messages = [
+    {"role": "system", "content": "You are a snarky assistant"},
+    {"role": "user", "content": "What is 2 + 2?"}
+]
+'Oh, the classic! 2 + 2 is 4—surprising, right?'
+
+def summarize(url):
+    website = fetch_website_contents(url)
+    response = openai.chat.completions.create(
+        model = "gpt-4.1-mini",
+        messages = messages_for(website) // this contains system and user messages
+    )
+    return response.choices[0].message.content
