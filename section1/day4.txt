@@ -1,0 +1,41 @@
+The paper is "Attention Is All You Need" by Vaswani et al. It introduced the Transformer architecture, which relies entirely on self-attention mechanisms instead of recurrence (RNNs) or convolutions. It became the foundation for virtually all modern large language models (BERT, GPT, etc.).
+
+what are parameters
+tricks to make model perform better: (training time scaling and infrance time scaling)
+    infrance time scaling techniques:
+        -reasoning: we can let the model do better by asking it to generate tokens that describe how you will answer the question, or use the word wait while it is thinking
+        -another type of infrance time scaling is about putting more information in the input sequence (such as rag)
+
+early days neural networks were trained at the character level (predicts the next character in this sequence)
+    too much work from the network
+then neural networks were trained off words (predict the next word in this sequence)
+    easier to learn but leads to enourmous vocabs with rare words omitted
+the breakthrough was to work with chunks of words, called tokens
+    middle ground: manageable vocab, and useful information for the neural network in addition, elegantly handles word stems
+    https://platform.openai.com/tokenizer
+    rule of them (1 token is ~4 characters, t token is 0.75 words)
+
+text to tokens:
+import tiktoken
+encoding = tiktoken.encoding_for_model("gpt-4.1-mini")
+tokens = encoding.encode("Hi my name is Ed and I like banoffee pie")
+
+tokens to text:
+for token_id in tokens:
+    token_text = encoding.decode([token_id])
+    print(f"{token_id} = {token_text}")
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant"},
+    {"role": "user", "content": "Hi! I'm Ed!"},
+    {"role": "assistant", "content": "Hi Ed! How can I assist you today?"}, // response of ai
+    {"role": "user", "content": "What's my name?"}
+    ]
+
+context window:
+    maximum number of tokens that the model can consider when generating the next token
+    when the ai generate the first token, then he enters the whole thing again with the newly generated token and tries to generate the next token
+
+API costs
+    reasoning tokens, tokens you add in memory
+    if you are sending the same input more than once in the modal in short window then it may cost less due to caching

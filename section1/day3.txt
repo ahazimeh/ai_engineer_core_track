@@ -1,0 +1,7 @@
+3 flavors of llm
+base
+chat/instruct
+reasoning/thinking
+
+24-claude code
+uv run solution.py
