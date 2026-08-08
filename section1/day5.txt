@@ -1,0 +1,46 @@
+data that llm models are trained on:
+    -natural language
+    -markdowns
+    -json
+multi shot prompting (like giving several examples with answers) // one shot prompting is 1 example
+
+def select_relevant_links(url):
+    response = openai.chat.completions.create(
+        model=MODEL,
+        messages=[
+            {"role": "system", "content": link_system_prompt},
+            {"role": "user", "content": get_links_user_prompt(url)}
+        ],
+        response_format={"type": "json_object"} // constraints gpt during the infrance time to never pick a token that would result in an invalid json
+    )
+    result = response.choices[0].message.content
+    links = json.loads(result)
+    return links
+
+def get_brochure_user_prompt(company_name, url):
+    user_prompt = f"""
+You are looking at a company called: {company_name}
+Here are the contents of its landing page and other relevant pages;
+use this information to build a short brochure of the company in markdown without code blocks.\n\n
+"""
+    user_prompt += fetch_page_and_all_relevant_links(url)
+    user_prompt = user_prompt[:5_000] # Truncate if more than 5,000 characters
+    return user_prompt
+
+
+
+stream response
+def stream_brochure(company_name, url):
+    stream = openai.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {"role": "system", "content": brochure_system_prompt},
+            {"role": "user", "content": get_brochure_user_prompt(company_name, url)}
+          ],
+        stream=True
+    )    
+    response = ""
+    display_handle = display(Markdown(""), display_id=True)
+    for chunk in stream:
+        response += chunk.choices[0].delta.content or ''
+        update_display(Markdown(response), display_id=display_handle.display_id)
