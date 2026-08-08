@@ -1,0 +1,41 @@
+infrance time vs training time
+reasoning_effort:
+    response = openai.chat.completions.create(model="gpt-5-nano", messages=easy_puzzle, reasoning_effort="minimal")
+    display(Markdown(response.choices[0].message.content))
+
+run gpt with groq (faster)
+    response = groq.chat.completions.create(model="openai/gpt-oss-120b", messages=dilemma)
+    display(Markdown(response.choices[0].message.content))
+
+routers and abstraction layers
+you put a separate component (third party) in between you and the providers like your bridge
+a router is a remote process you connect out to and it routes on your request to 1 of the other providers
+an abstraction layer is when you have a framework, some code running on your computer and you call the code with consistent api and it then desides how to call each of the providers separately
+
+router example
+    response = openrouter.chat.completions.create(model="z-ai/glm-4.5", messages=tell_a_joke) // check the modals on the website
+    display(Markdown(response.choices[0].message.content))
+
+abstraction layers
+    langchain:
+    from langchain_openai import ChatOpenAI
+    llm = ChatOpenAI(model="gpt-5-mini")
+    response = llm.invoke(tell_a_joke)
+    display(Markdown(response.content))
+
+    LiteLLm:
+    from litellm import completion
+    response = completion(model="openai/gpt-4.1", messages=tell_a_joke)
+    reply = response.choices[0].message.content
+    display(Markdown(reply))
+
+    print(f"Input tokens: {response.usage.prompt_tokens}")
+    print(f"Output tokens: {response.usage.completion_tokens}")
+    print(f"Total tokens: {response.usage.total_tokens}")
+    print(f"Total cost: {response._hidden_params["response_cost"]*100:.4f} cents")
+
+
+    for openai the beginning of the prompt should match identically until the point where you no longer need to cache, so it is better to put the static content at the end and not the beginning
+    with anthropic you need to tell it to prime the cache (you pay 25% more) but using the cache will save you 10X less
+
+if there are more than 2 modals chatting, then instead of putting the change as system/user you can add a system prompt put the whole discussion and ask the ai to give you answer
