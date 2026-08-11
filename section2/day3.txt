@@ -1,0 +1,4 @@
+AI assistent
+    it can have on brand persona
+    it can have illusion of memory
+    it can have expertise 

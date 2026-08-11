@@ -1,0 +1,9 @@
+tools
+tool calling in practice
+    llm only generates Tokens! Our code calls the tool and returns the answer to llm and the llm tells us about the answer for the tool
+common use cases for toos:
+    fetch data or add knowledge or context
+    take actions, like booking a meeting
+    perform calculations or run code
+    modify the ui
+    -etc...
