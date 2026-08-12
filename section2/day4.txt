@@ -125,3 +125,7 @@ def chat(message, history):
     
     return response.choices[0].message.content
 // please note that this while can be called as any amount of times as the llm chooses but it shouldn't be a concern because llm will stop calling it after some time, although you can put a condition to force it to stop after some iterations if material is a concern
+
+// streaming result back would work but it is going to have a lot of code to get it to work with tool calling
+
+in python you are able to take a string and check whether there is a function with this name and call it dynamically
