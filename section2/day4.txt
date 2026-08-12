@@ -56,6 +56,72 @@ def handle_tool_call(message):
         response = {
             "role": "tool",
             "content": price_details,
-            "tool_call_id": tool_call.id
+            "tool_call_id": tool_call.id // for modal to know which tool he is calling
         }
     return response
+
+but now if someone asked for prices to going to paris and london there will be an error because our function will take 1 tool call
+fix:
+
+def chat(message, history):
+    history = [{"role":h["role"], "content":h["content"]} for h in history]
+    messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": message}]
+    response = openai.chat.completions.create(model=MODEL, messages=messages, tools=tools)
+
+    if response.choices[0].finish_reason=="tool_calls":
+        message = response.choices[0].message
+        responses = handle_tool_calls(message)
+        messages.append(message)
+        messages.extend(responses)
+        response = openai.chat.completions.create(model=MODEL, messages=messages)
+    
+    return response.choices[0].message.content
+
+def handle_tool_calls(message):
+    responses = []
+    for tool_call in message.tool_calls:
+        if tool_call.function.name == "get_ticket_price":
+            arguments = json.loads(tool_call.function.arguments)
+            city = arguments.get('destination_city')
+            price_details = get_ticket_price(city)
+            responses.append({
+                "role": "tool",
+                "content": price_details,
+                "tool_call_id": tool_call.id
+            })
+    return responses
+
+which is cheaper, a flight to london or paris
+
+but there is still 1 bug,
+    first please find the price for flights to London, and only if it's under $1000 please check the prices to Paris
+reason:
+def chat(message, history):
+    history = [{"role":h["role"], "content":h["content"]} for h in history]
+    messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": message}]
+    response = openai.chat.completions.create(model=MODEL, messages=messages, tools=tools)
+
+    if response.choices[0].finish_reason=="tool_calls":// here it is just an if statement and it doesn't support sequential tool calling, to fix just change if to while
+        message = response.choices[0].message
+        responses = handle_tool_calls(message)
+        messages.append(message)
+        messages.extend(responses)
+        response = openai.chat.completions.create(model=MODEL, messages=messages) // and here provide the tools
+    
+    return response.choices[0].message.content
+below is solution:
+
+def chat(message, history):
+    history = [{"role":h["role"], "content":h["content"]} for h in history]
+    messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": message}]
+    response = openai.chat.completions.create(model=MODEL, messages=messages, tools=tools)
+
+    while response.choices[0].finish_reason=="tool_calls":
+        message = response.choices[0].message
+        responses = handle_tool_calls(message)
+        messages.append(message)
+        messages.extend(responses)
+        response = openai.chat.completions.create(model=MODEL, messages=messages, tools=tools)
+    
+    return response.choices[0].message.content
+// please note that this while can be called as any amount of times as the llm chooses but it shouldn't be a concern because llm will stop calling it after some time, although you can put a condition to force it to stop after some iterations if material is a concern
