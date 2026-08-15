@@ -1,0 +1,16 @@
+Hugging Face Platform    
+    modals: contains a lot of open source modals (over 2M)
+    datasets: over 500000
+    spaces: hosted apps
+
+olama is like fast packaged prebacked software
+HuggingFace libraries you get access to the actual python code and you can run it
+libraries:
+    -HuggingFace hub (python library that lets you connect to HuggingFace hub to download the models or dataset that you can see on HuggingFace hub and have them in your code immediately)
+    -datasets
+    -transformers (lets you say I want this model and want the code for it and I want to be able to run it, train it, play with it)
+    -peft -parameter efficient fine tuning-
+    -trl -transformers reinforcement library- (all about training transformers)
+    -accelerate (allows you to distribute models across multiple gpus)
+
+GOOGLE COLAB
