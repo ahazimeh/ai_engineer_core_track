@@ -1,0 +1,5 @@
+token
+token id is the id for this token
+special tokens don't map to any natural word
+    like this is the beginning of a prompt, this is the start of what I am going to tell you
+    ex: let us say number 10 is the start of prompt, so when training we repeatedly use this number at the start of every prompt when training the neural network

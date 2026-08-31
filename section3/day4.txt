@@ -1,0 +1,1 @@
+Quantization is the process of reducing the precision of a model's weights (e.g., from 32-bit floats down to 8-bit or 4-bit integers), making the model smaller and faster to run with minimal loss in accuracy. It's essentially a size/speed vs. quality tradeoff.

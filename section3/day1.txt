@@ -12,5 +12,14 @@ libraries:
     -peft -parameter efficient fine tuning-
     -trl -transformers reinforcement library- (all about training transformers)
     -accelerate (allows you to distribute models across multiple gpus)
+    -diffusers -image/video generation like Stable Diffusion
 
 GOOGLE COLAB
+    -allows you to run a notebook in the cloud with a powerful runtime
+    -allows you to collaborate with others
+    -integrate with other google services
+Rent gpus in the cloud:
+runtime
+    cpu based
+    lower spec gpu
+    hgiher spec GPU (paid)

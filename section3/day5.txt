@@ -1,0 +1,1 @@
+temperature: higher temperature means the model could pick something that is not highest probability, 0 temperature means that we always pick the higher probability token
