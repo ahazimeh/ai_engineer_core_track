@@ -1,0 +1,18 @@
+five leaderboards
+    -Artificial Analysis
+    -vellum
+    -scale.com
+    -Hugging Face
+    -Live Bench
+
+LM Arena
+    -compare frontier and open source modals directly
+    -blind human evals based on head-to-head comparison
+    -LLM are measured with an ELO-style score rating
+
+Commercial Use Cases
+    automate -> augment -> differentiate
+    
+    automate: chatgpt wrapper (dulingo, copilots)
+    augment: specialized
+    differentiate: agentic (Claude Code, OpenAI Codex, OpenAI Agent)

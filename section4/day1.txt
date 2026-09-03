@@ -1,0 +1,11 @@
+compare the following LLM:
+    interference cost
+    training cost
+    build cost
+    time to market
+    speed
+    latency -time to the first token (time after reasoning is done)-
+    license (like limitations, signing agreements...)
+
+Chinchilla:
+    It's a 2022 DeepMind paper that figured out the optimal ratio between model size and training data — roughly 20 tokens per parameter. Before it, labs were building models too big with too little data. After it, everyone recalibrated.
