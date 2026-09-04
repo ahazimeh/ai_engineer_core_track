@@ -1,0 +1,6 @@
+the 5 step strategy:
+    understand (business requirements, problem you are solving)
+    prepare (by selecting candidate modals)
+    select (the modal you want to choose)
+    customize it (by building things like rag, fine tuning, agentic ai)
+    productionize

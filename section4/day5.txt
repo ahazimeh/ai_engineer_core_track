@@ -1,0 +1,15 @@
+how to evaluate the performance of a Gen AI solution?
+    Model-centric or Technical Metrics
+        Loss(eg cross-entropy loss)
+        Perplexity
+        Accuracy
+        Precision, Recall, F1
+        AUC-ROC
+        Easier to optimize with
+    Business-centric or Outcome Metrics
+        KPIs tied to business objectives
+        ROI
+        improvements in time, cost or resources
+        Customer satisfaction
+        Benchmark comparisons
+        Most tangible impact
