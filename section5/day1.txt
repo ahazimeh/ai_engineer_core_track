@@ -1,0 +1,14 @@
+Auto-regressive LLM
+    train to take input sequence and to predict the next token that should comes after
+Auto-encoding
+    produce output based on the full input
+
+Auto-encoding LLMs
+    -applications include sentiment analysis and classification
+    -also used to calculate "Vector Embeddings", representing an input as a list of numbers -ie. a vector
+
+The vecotrs mathematically represents the 'meaning' of an input
+    -can represent a character, a token, a word, an entire document, or something abstract
+    -Typically have hundreds, or thousands of dimentions
+    -Represent an 'understanding' of the inputs; similar inputs are close to each other
+    -Support 'vector math' like the famous example: "King - Man + Woman = Queen"
