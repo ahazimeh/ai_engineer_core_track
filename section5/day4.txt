@@ -1,0 +1,27 @@
+things to love about rag:
+    -Rapid time to market
+    -Give an LLM vast expertise
+    -Save on context length
+    -Avoid distracting with different context
+things not to love about rag:
+    -It's a hack
+    -It's empiricle aka trial & error
+    -Unexpected I don't know
+    -Great idea can have poor results
+
+RAG Pipeline Evaluation Notes
+
+Core principle: Evaluations are everything for improving a RAG pipeline.
+
+1. Curate a Test Set
+
+Build an example question set with the right context identified and reference answers provided.
+
+2. Measure Retrieval
+MRR (Mean Reciprocal Rank) = Average inverse rank of first hit; 1 if the first chunk always has relevant context
+nDCG (Normalized Discounted Cumulative Gain) = Did relevant chunks get ranked higher up
+Recall@K = Proportion of tests where relevant context was in the top K chunks (or, if you have multiple keywords to look for, keyword coverage is a similar recall metric)
+Precision@K = Proportion of the top K chunks that are relevant
+3. Measure Answers
+
+Use LLM-as-a-judge to score provided answers against criteria like accuracy, completeness, and relevance.
