@@ -25,3 +25,27 @@ Precision@K = Proportion of the top K chunks that are relevant
 3. Measure Answers
 
 Use LLM-as-a-judge to score provided answers against criteria like accuracy, completeness, and relevance.
+
+--------------------------------------------------
+
+give simple formula, maybe just example so I understand when reviewing my notes
+
+MRR — average of 1/rank of first hit, across all keywords:
+
+keyword found at rank 1 → 1/1 = 1.0
+keyword found at rank 4 → 1/4 = 0.25
+keyword not found      → 0
+
+MRR = average of these scores
+nDCG — rewards relevant hits being near the top, penalizes them being spread out lower down. Formula: DCG / IDCG (actual ranking score ÷ best-possible ranking score).
+
+Example: keyword found at ranks [1, 3, 5] out of 5 chunks (relevances = [1,0,1,0,1])
+
+DCG  = 1/log2(2) + 1/log2(4) + 1/log2(6) = 1.0 + 0.5 + 0.387 = 1.887
+IDCG = best case, same 3 hits moved to top: [1,1,1,0,0]
+     = 1/log2(2) + 1/log2(3) + 1/log2(4) = 1.0 + 0.631 + 0.5 = 2.131
+
+nDCG = 1.887 / 2.131 ≈ 0.886
+So: MRR only cares about the first hit's position. nDCG looks at all hits and compares your actual ranking to the best possible ranking of the same hits.
+
+--------------------------------------------------
